@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Box Shadow Generator</title>
+
+    <style>
+        body{
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Corbel;
+            font-size: 16px;
+        }
+
+        h2{
+            font-weight: 500;
+        }
+
+        .form{
+           display: inline-flex;
+           flex-direction: column;
+           margin: 30px;
+           padding: 30px;
+           border: 2px solid rgb(199, 199, 199);
+           border-radius: 5px;
+           text-align: center;
+        }
+
+        /* ползунки */
+        .inputRange{
+            display: inline-flex;
+            flex-direction: column;
+            width: 350px;
+            text-align: left;
+            outline: none;
+        }
+
+        .result{
+            display: flex;
+            align-items: center;
+        }
+
+        .result textarea{
+            height: 20px;
+            width: 290px;
+            margin-right: 5px;
+        }
+
+        .result button{
+            height: 25px;
+            width: 50px;
+        }
+
+        input[type="range"]{ height: 7px; }
+        input{ margin-bottom: 25px; }
+        input[type="color"]{ width: 350px ;}
+
+    </style>
+</head>
+<body>
+    <div class="form" id="form">
+        <h2>Box Shadow Generator</h2>
+        <div class="inputRange">
+            <label for="offsetX">X Offset</label>
+            <input type="range" id="offsetX" min="-50" max="50" step="1" value="0">
+            
+            <label for="offsetY">Y Offset</label>
+            <input type="range" id="offsetY" min="-50" max="50" step="1" value="0">
+            
+            <label for="spread">Spread</label>
+            <input type="range" id="spread" min="-40" max="60" step="1" value="10">
+            
+            <label for="blur">Blur</label>
+            <input type="range" id="blur" min="0" max="100" step="1" value="50">
+            
+            <label for="color">Color</label>
+            <input type="color" id="color">
+        </div>
+        <div class="result">
+            <textarea id="cssCode" readonly></textarea>
+            <button id="copyBtn">copy</button>
+        </div>
+    </div>
+
+    <script>
+        let offsetX = document.getElementById('offsetX');
+        let offsetY = document.getElementById('offsetY');
+        let spread = document.getElementById('spread');
+        let blurR = document.getElementById('blur');
+        let form = document.getElementById('form');
+        let textarea = document.getElementById('cssCode');
+        let color = document.getElementById('color');
+        let ranges = document.querySelectorAll('input[type="range"]');
+
+        // генератор
+        function generateCss(){
+
+            let result = document.getElementById('result');
+
+            let str = `${offsetX.value}px ${offsetY.value}px ${blurR.value}px ${spread.value}px ${color.value}`
+            textarea.value = 'box-shadow: ' + str;
+            form.style.boxShadow = str;
+        }
+
+        function UpdateBoxShadow() {
+            let str = `${offsetX.value}px ${offsetY.value}px ${blurR.value}px ${spread.value}px ${color.value}`
+            textarea.value = 'box-shadow: ' + str;
+            form.style.boxShadow = str;
+        }
+
+        [offsetX, offsetY, blurR, spread, color].forEach(input => {
+            input.addEventListener("input", UpdateBoxShadow);
+        })
+
+        for(let item of document.querySelectorAll('input')){
+            item.addEventListener('input', generateCss)
+        }
+
+        // цвет ползунков
+        function updateSlidersColor(color) {
+            ranges.forEach(range => {
+                range.style.accentColor = color; 
+            });
+        }
+
+        color.addEventListener("input", () => {
+          updateSlidersColor(color.value);
+        });
+        
+        updateSlidersColor(color.value);
+
+        // кнопка
+        copyBtn.addEventListener("click", () => {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textarea.value);
+            } else {
+            textarea.select();
+            document.execCommand("copy");
+            }
+        });
+
+        generateCss();
+        UpdateBoxShadow();
+    </script>
+
+</body>
+</html>

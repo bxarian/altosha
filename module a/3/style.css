@@ -1,0 +1,70 @@
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        perspective: 800px; 
+    
+    }
+    
+    .cube{ 
+        position: relative;
+        width: 100px;
+        height: 100px;
+        transform-style: preserve-3d;
+        transform:  rotateX(-25deg);
+        animation: rotateCube 5s infinite linear;
+    }
+
+    /* стороны куба */
+    .side {
+        position: absolute;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 100px;
+        height: 100px;
+        background-color: #000000;
+        border: 1.5px solid black;
+        border-radius: 3px;
+    }
+
+    /* блоки на каждой стороне */
+    .block{
+        border: 1.5px solid black;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* расположение сторон */
+    .top-white { transform: rotateX(90deg) translateZ(50px); }
+
+    .bot-yellow { transform: rotateX(-90deg) translateZ(50px); }
+
+    .front-red { transform: translateZ(50px); }
+
+    .back-orange { transform: rotateY(180deg) translateZ(50px); }
+
+    .left-green { transform: rotateY(-90deg) translateZ(50px); }
+
+    .right-blue { transform: rotateY(90deg) translateZ(50px); }
+
+    /* цвета блоков */
+    .white { background-color: white; }
+    .yellow { background-color: yellow; }
+    .red { background-color: red;}
+    .orange { background-color: orange; }   
+    .green { background-color: green; }
+    .blue { background-color: blue; }
+
+    /* анимация */
+    @keyframes rotateCube {
+        from {
+          transform: rotateX(-20deg) rotateY(0deg);
+        }
+        to {
+          transform: rotateX(-20deg)  rotateY(-360deg);
+        }
+    }
+
+
+  

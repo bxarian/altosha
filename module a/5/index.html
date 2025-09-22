@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draggable</title>
+    <style>
+      #draggable {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #eee;
+        border: 1px solid #bbb;
+        padding: 0.5rem 1rem;
+        cursor: move;
+        user-select: none;
+
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="draggable">Drag me please! 🚀</div>
+
+    <script>
+      const draggable = document.getElementById("draggable");
+      let offsetX = 0;
+      let offsetY = 0;
+      let isDragging = false;
+
+      draggable.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      
+      const rect = draggable.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      });
+    
+      document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+      
+        draggable.style.left = e.clientX - offsetX + "px";
+        draggable.style.top = e.clientY - offsetY + "px";
+      });
+    
+      document.addEventListener("mouseup", () => {
+        isDragging = false;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2</title>
+</head>
+<body>
+    <style>
+    .field {
+        position: relative;
+        margin: 30px 0;
+        width: 300px;
+    }   
+
+    .field input {
+        width: 100%;
+        border: 2px solid #D3D3D3;
+        border-radius: 5px;
+        padding: 10px 0;
+        transition: border-color 0.2s;
+    }
+
+    .field input:focus {
+        border-color: #2E57FA;
+        outline: none;
+    }
+
+
+    .field label {
+        position: absolute;
+        left: 5px;
+        top: 10px;
+        background-color: #ffffff;
+        color: #838383;
+        font-size: 16px;
+        transition: 0.2s;
+    }
+
+
+    .field input:focus + label,
+    .field input:not(:placeholder-shown) + label {
+        top: -8px;
+        font-size: 12px;
+        color: #2E57FA;
+    }
+    </style>
+    <div class="field">
+        <input type="text" id="name" placeholder=" " class="input">
+        <label for="name">First name</label>
+    </div>
+</body>
+</html>
